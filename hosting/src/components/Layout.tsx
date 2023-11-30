@@ -1,40 +1,27 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { Layout, Menu, MenuProps, Button, Modal, Form, Input, Drawer, Row, Col, Radio } from "antd";
+import { Layout, Menu, MenuProps, Button, Modal, Form, Input, Avatar } from "antd";
 import Icon from "@ant-design/icons";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 const { Header, Content, Footer } = Layout;
-import { menu } from "menu";
-import { newMenu } from "utils/menu";
 import { StyledComponent } from "./Layout.style";
 import LogoMSB from "assets/logo-msb.png";
 import DownIcon from "assets/Icons/down";
+import { UserOutlined } from "@ant-design/icons";
 import { auth, logInWithEmailAndPassword, logout } from "utils/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { request } from "utils/api";
-import CustomSelect from "./select.custom";
 import DrawerLayout from "./Drawer";
-// import { getUserDetails } from "services/user";
 
 const token = localStorage.getItem("accessToken");
 const email = localStorage.getItem("email");
-const username = email?.slice(0, email?.indexOf("@"))
 
 const AppLayout = () => {
   const [form] = Form.useForm();
-  const [formAdvise] = Form.useForm();
   const navigate = useNavigate();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [open, setOpen] = useState(false);
-
-  const showDrawer = () => {
-    setOpen(true);
-  };
-
-  const onClose = () => {
-    setOpen(false);
-  };
 
   const [values, setValues] = useState({
     username: "",
@@ -48,6 +35,7 @@ const AppLayout = () => {
   }, []);
 
   const [userLogged, setUserLogged] = useState(token && email ? true : false);
+  const [name, setName] = useState(email?.slice(0, email?.indexOf("@")));
 
   useEffect(() => {
     if (loading) {
@@ -55,19 +43,20 @@ const AppLayout = () => {
       return;
     }
     if (user) {
-      const userLogged: any = user?.toJSON();
-      console.log("userLogged", userLogged)
+      const logged: any = user?.toJSON();
       localStorage.setItem(
         "accessToken",
-        userLogged.stsTokenManager.accessToken
+        logged.stsTokenManager.accessToken
       );
       localStorage.setItem(
         "email",
-        userLogged.email
+        logged.email
       );
+      setName(logged.email?.slice(0, logged.email?.indexOf("@")))
       setOpenDialog(false);
-      setUserLogged(true)
-      // getUserInfor();
+      setUserLogged(true);
+    } else {
+      setUserLogged(false);
     }
   }, [loading, user]);
 
@@ -178,8 +167,15 @@ const AppLayout = () => {
         icon: "",
 
       },
+
       {
-        label: userLogged ? username : (
+        label: userLogged ? <span>
+          <Avatar
+            icon={<UserOutlined />}
+            src={null}
+            style={{ marginRight: 10 }}
+          />{name}
+        </span> : (
           <Button type="link" onClick={() => setOpenDialog(true)} style={{ color: "#000" }}>
             Đăng nhập
           </Button>
@@ -187,7 +183,7 @@ const AppLayout = () => {
         children: userLogged ? [
           {
             label: (
-              <a onClick={() => window.location.replace("my-account")}>
+              <a onClick={() => window.location.replace("/my-account")}>
                 Quản lý tài khoản
               </a>
             ),
@@ -211,7 +207,7 @@ const AppLayout = () => {
         key: 'alipay',
       },
     ]
-  }, [userLogged]);
+  }, [userLogged, name]);
 
   return (
     <StyledComponent>
@@ -224,7 +220,7 @@ const AppLayout = () => {
 
             </a>
           </div>
-          <div className="advise"><Button onClick={showDrawer}>Yêu cầu tư vấn</Button></div>
+          <div className="advise"><Button onClick={() => setOpen(true)}>Yêu cầu tư vấn</Button></div>
 
           <div className="menu">
             <Menu onClick={() => { }} selectedKeys={[]} mode="horizontal" items={items} />

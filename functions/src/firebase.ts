@@ -3,21 +3,23 @@ import * as admin from "firebase-admin";
 
 const serviceAccount: any = {
   type: "service_account",
-  project_id: "des-loc-nuoc",
-  private_key_id: "b1ff0953b5285f061ff1969c2e73047821f0b76c",
+  project_id: "msb-landing",
+  private_key_id: "00e3d9b3ce6fc481cff78a3f6d88e7bf698d7864",
   private_key:
     // eslint-disable-next-line max-len
-    "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCyPpN2Xr9RKVpF\nKoMwB6T9n24I1uOorTV54/zsIkvBGuCUBjmCex4WewqXVYRDkW2iL6alTqH/feLu\ncda15HUtDZlclwOk0n6Erp0eXGjhKXdsFqDJOuLgd/aY636hdCNAvf6CsHOu3RtB\nMUblNSebw2piCVCQzDHgk9n3tnhvve7fJnO0crllxOzZv5U/NNpyAJyI2P6fY9L2\nCdClGQQRBJWkJd3w6YZ36/84HyEmKvNZsdEa5IukL0n+VH77MOofQYQdw4KkvcOw\nWYW60APOdL83Xx9Z3B8iuYNwo5ZtBHzho5nkk8jPyQErARM6ng4MSXZMjVizOT76\nT3ES4pcXAgMBAAECggEAHKF+kFHxyzioPlnwzqM7tl2IkDTsRqjj4RtlAg0UPAV0\nM3K4hCQAlj3XWq2q3Cuc/6NF0mHKFb8D16dDhN4YkE8R5lR/ilchaXCe3kSbuCcv\n/pW35/rkfIfofXG+WnLMQtcB7b4oJttvSE6BA8pA/X0rNmomncue62L0bRzLRa9o\n8OGnaT672smJLqyz12le3VyWJJVEKrljDtqKAwKhxIevUUytTzqru91GFPPvL7Bg\nsfMGANuYn43owHNFocnOqVB0axetU5wMtJWtdX/AbxEm2PEVfCcKg5IBHefPOXSH\n5k+N3OmlL83XwDpAbqzoyBGTQLPdUPz0lJm7hr+JEQKBgQDYSegSWOp0/TMC648s\nqKfiK2fqwQdkrjCc8K00dztXX3UKAwSQaMiBfut0W3IvVh059ewXZ8rnqeXf2wbF\njHJmOGPEDkxYGRPbebHTmjErnyMcC2LNL1IkyJ7/9AluiQgRy0fTEjaCv4Up1686\nbumQT9NxmOtA3Jb7cDD+x/UuCQKBgQDS+H86/Ew/N0qWrvCPZcNEIaVT6EYd8VtX\neixEsURaM5rIxCxN5hiIf3uYTfmFGB6j9Q60xA9RXUYsPSES39BtTpsTXKyVZMsw\n+6xv1MQmiw7ccH4GaJY33NniA73Nr+bjTBEdaISqx41d1DUP5y0yWYAs91tsX3FS\nQ1IF0iLkHwKBgQCJjfdaM9JotN9MbCOSc3DSFmjwk/LvxRiFt0twoqPK3ZrB00mD\nziA2u1FjnwTvtgTAZ/bOq+QPka3wwIt99+SJvjM07SMApHJMkwjVWqsK4xqhK1ya\nwg2r9yun/LxC4EORjYcQZfTlEojOI639q6w/a4U+KdL0XVZocuG2J9V2gQKBgFwT\nfpwE31Y70H8BbRZ4yIdk095SIsAQxdfhB48XewiPOz/idp+tDAoO8adgaMWQ6FaQ\nrtFwPGs7dVP7fgLZ0gLS6tXBfcVaD2CahwDr8IwN5veI1UgAv4c0CZgeH+m0muWb\nHmEia7yJiYZpBpuhPtWZwFpfvvQGl9Pac+L8eqPrAoGALiMq+W8tIIFuWKcvEAZn\nXbA3avmp68PgpMDCYKrsd5LZeN3WDVsgCoGoKP/2xH3FUIq2msZKJ9+k7VgCttUD\nPb5MhuRZXypAFNQACY45ib5E6Zitg5ln0rw0avJgkCdBHOd/H5BzhIrCE5GAqg+h\nPt1e4mx7KgpSA0vNdv+O6iw=\n-----END PRIVATE KEY-----\n",
-  client_email: "firebase-adminsdk-uy8md@des-loc-nuoc.iam.gserviceaccount.com",
-  client_id: "104933364066742197924",
+    "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDbMy1G3xXTdMS0\njrx1NO0COEE334OAq2erloVVFleUjsF9pc2Z08PUP4HSfXYSHS/mk2gV7EEGIgQo\nJv6mgrB43phQDuEtCuaZExaTOHZEMHcXnPOJQtjP0T8Xo9VzUPd/kxdzY05URWA2\nt1mOw1N4My4svTP1HfqttxuqP26wtkRocszegKVa2xTroiloyzW52Dx2dambU8tO\nl4uOVj4/pLHmWogHTxqZkkv3UybgFnVVc6wEwFtPQGO0VCqbENm79k50jVYlreyZ\nJM/3gv7UWZwBiFIdvxV/Z5k5uXeLFspmbysBPapUv/RBu6Bziv+0hiYXuzw7zVmG\n2pquFoMNAgMBAAECggEAK1qJ3/SLepEjvppkh8H6BnBd5dEdTzuXe4Z/xH5wv/8k\nIdfDPGN33ejZomoSCi8fpDkPYxahHbdonxBnWUOL57wO3/axbpkzVp9B3chTC9WS\nGGeAe2tvOlsmYWST+QTQjrjm8Hl5qo02JFxLKENVpPZqcYrSVe6h/+2xWRDGschd\nNUQAEFUmKVKx8+owo56lYVT+KUPd796l7i5i+eXpJKLnncHPL5V1s3rWgZIjmL/J\nyBEeK31I40vM5wjvRzCrlhAxw1t0o8OUquvTTVTHxfVI/V2Zrr1h6YByRP69cRCF\nw7K0Auo+B/5kq3gql9A7cuFGVH8f8DtMilpV6nyS+QKBgQDvpTcmwffFWBMw9SHe\noVt4INPK1m+Z10jtsC6G18k3qB+/HIMalFaqHCeJj8/YuHA5w8zsgtO0z5lO48iL\nT20b2/hgetAfZB4mFq0oqqocQlgza7PocBzcPP1YC2SAMOQiyIu9NUufbS20Ojww\nJ1OwM34jrQ4l951eriJqyUf0CwKBgQDqKMOK2Y7eij/JmrM8e9jy9neYuZ6CFY8d\nq+m57w7XiVZ9xrFeznq5i+clObg2W7j8GF5M3cXalnhZSpB5fc5EmGHyfMa7xK2C\nrZd8dZH16SlI7s/PYl1w7+Ru0IntXNhXWSYmd5F8WBk/jtkaRFbYoFcu5fd1ABCZ\n/86oRhX8RwKBgFOPxH9bO04wu+BiWYELup1UtQURaLC4BNH8kPyr2Znyob897eki\nuGVwk8i/wLXM+jTqNVZy9+cgTFDZ1F/fPihst1rM+C0599lIJvD7MX3RFHg5oe32\nydlx2tUMg+q/IY2PaEp9fvUEWN9zPvF7hQ73pZBDE5/hi5osFgwuS0ypAoGAfOf3\nvwZkZqNaeWFTQO1Tge8lRsulGQEFEa/VgoBZ63FwOLGXhdogrv9I8puCf0SYPamG\nC/y1APAJDKBwxs3sDL04alBS9nBome+dgh95F7MjeasiIR74dzkQImiNWpePM7Dz\nX8uiSLD57uR1PMS9itqlBvhW8wtwz6UcCLkyGxsCgYB5qnyh/l52BBVawNGBr+jM\njHUuFahTPFA+qUjW/nDrkdUmAR1WYrNubFKiWPMUg8cuK/wH25Dxdn3fMd/Yqf5z\nI4okrdQud3ESixSBgLxs/GZ3uodwBxFvZa9Yd1WSjEKgfUb4+ScptDevf8tCFqRl\n1GfavlCu4gxsanK1BevO6g==\n-----END PRIVATE KEY-----\n",
+  client_email: "firebase-adminsdk-i8s05@msb-landing.iam.gserviceaccount.com",
+  client_id: "108786139527076607089",
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  // eslint-disable-next-line max-len
   client_x509_cert_url:
-    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-uy8md%40des-loc-nuoc.iam.gserviceaccount.com",
+    "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-i8s05%40msb-landing.iam.gserviceaccount.com",
+  universe_domain: "googleapis.com",
 };
 const adminConfig: any = {
-  databaseURL: "https://des-loc-nuoc.firebaseio.com",
+  databaseURL: "https://msb-landing.firebaseio.com",
 };
 adminConfig.credential = admin.credential.cert(serviceAccount);
 admin.initializeApp(adminConfig);

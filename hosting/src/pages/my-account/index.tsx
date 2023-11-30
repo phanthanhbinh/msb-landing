@@ -2,18 +2,18 @@ import { Breadcrumb, Card, Col, Menu, MenuProps, Row } from "antd";
 import Icon from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { StyledComponent } from "./index.style";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { request } from "utils/api";
 import UserIcon from "assets/Icons/user";
 import ProductIcon from "assets/Icons/product";
 import LogoutIcon from "assets/Icons/log-out";
+import { logout } from "utils/firebase";
 
-const token = localStorage.getItem("accessToken");
-const email = localStorage.getItem("email");
-const username = email?.slice(0, email?.indexOf("@"))
 
 const MyAccount = () => {
   const navigate = useNavigate();
+  const [current, setCurrent] = useState('infor');
+  const email = localStorage.getItem("email");
 
   const items: MenuProps['items'] = [
     {
@@ -27,11 +27,21 @@ const MyAccount = () => {
       icon: <Icon component={ProductIcon} />
     },
     {
-      label: "Đăng xuất",
+      label: <a onClick={() => {
+        logout();
+        window.location.replace("/");
+      }}>
+        Đăng xuất
+      </a>,
       key: 'logout',
       icon: <Icon component={LogoutIcon} style={{ verticalAlign: "-0.525em" }} />
     }
   ];
+  const onClick: MenuProps['onClick'] = useCallback((e: any) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  }, []);
+
 
   const getUserInfor = useCallback(async () => {
     const option = {
@@ -47,18 +57,16 @@ const MyAccount = () => {
       console.log("something error");
     }
   }, []);
-  let firstLoad = true;
 
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
     if (token) {
-      if (firstLoad) {
-        getUserInfor();
-      }
-      firstLoad = false;
+      // getUserInfor();
     } else {
-      navigate("/");
+      navigate("/")
     }
-  }, [token]);
+
+  }, []);
 
   return (
     <StyledComponent>
@@ -80,12 +88,12 @@ const MyAccount = () => {
       />
       <Row gutter={32}>
         <Col span={8} >
-          <Card title={username}>
-            <Menu onClick={() => { }} selectedKeys={[]} mode="vertical" items={items} />
+          <Card title={email?.slice(0, email?.indexOf("@"))}>
+            <Menu onClick={onClick} selectedKeys={[current]} mode="vertical" items={items} />
           </Card>
         </Col>
         <Col span={16}>
-          <Card title="Thông tin chung">
+          {current === "infor" && <Card title="Thông tin chung">
             <Row className="detail">
               <Col span={6}>Họ và tên</Col>
               <Col span={18} className="right">Phan Thanh Bình</Col>
@@ -98,7 +106,12 @@ const MyAccount = () => {
               <Col span={6}>Số điện thoại</Col>
               <Col span={18} className="right">0981787987</Col>
             </Row>
-          </Card>
+          </Card>}
+          {current === "product" && <Card title="Thông tin sản phẩm">
+            <Row style={{ height: 150 }}>
+
+            </Row>
+          </Card>}
         </Col>
       </Row>
 
@@ -108,3 +121,7 @@ const MyAccount = () => {
 };
 
 export default MyAccount;
+function userMemo(arg0: () => ({ label: string; key: string; icon: import("react/jsx-runtime").JSX.Element; } | { label: import("react/jsx-runtime").JSX.Element; key: string; icon: import("react/jsx-runtime").JSX.Element; })[], arg1: never[]): import("antd/es/menu/hooks/useItems").ItemType[] | undefined {
+  throw new Error("Function not implemented.");
+}
+

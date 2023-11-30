@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import { StyledComponent } from "./index.style";
 import { Button, Card, Carousel, Col, Row } from "antd";
 import Icon from "@ant-design/icons";
@@ -13,12 +13,58 @@ import Image4 from "assets/image_4.png";
 import Image5 from "assets/image_5.png";
 import Image6 from "assets/image_6.png";
 import Frame1 from "assets/frame_1.png";
+import { request } from "utils/api";
 
 const user = localStorage.getItem("userInfo");
 function Home(props: any): ReactElement {
+  const [products, setProducts] = useState<any[]>([]);
   const onChange = (currentSlide: number) => {
     console.log(currentSlide);
   };
+  const getProducts = useCallback(async () => {
+    const option = {
+      method: "get",
+      url: `${process.env.REACT_APP_SERVER_URL}/products`,
+    };
+    try {
+      const res = await request(option);
+      if (!res.error) {
+        const data = res.data.items.sort((a: any, b: any) => a.index - b.index);
+        const productsData = data.map((product: any, index: number) => {
+          let image = null
+          switch (index) {
+            case 0: image = Image1
+              break;
+            case 1: image = Image2
+              break;
+            case 2: image = Image3
+              break;
+            case 3: image = Image4
+              break;
+            case 4: image = Image5
+              break;
+            case 5: image = Image6
+              break;
+            default: break;
+          }
+          return {
+            ...product,
+            image
+          }
+        });
+        setProducts(productsData);
+      }
+    } catch {
+      console.log("something error");
+    }
+  }, []);
+  let firsLoad = true
+  useEffect(() => {
+    if (firsLoad) {
+      getProducts()
+      firsLoad = false
+    }
+  }, [])
 
   return (
     <StyledComponent>
@@ -142,66 +188,18 @@ function Home(props: any): ReactElement {
               <p className="text-6">Danh sách sản phẩm</p>
             </div>
             <Row gutter={24}>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image1} /></div>
-                  <div className="text-7">Thẻ tín dụng</div>
-                  <div className="text-8">Đa dạng lựa chọn theo phong cách chi tiêu</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
-                  </div>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image2} /></div>
-                  <div className="text-7">Vay linh hoạt</div>
-                  <div className="text-8">Giải ngân tức thì, tiêu dùng linh hoạt</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
-                  </div>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image3} /></div>
-                  <div className="text-7">Mua trước trả sau</div>
-                  <div className="text-8">Chuyển đổi trả góp, nhẹ ví chi tiêu</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
-                  </div>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image4} /></div>
-                  <div className="text-7">Tiền nhanh</div>
-                  <div className="text-8">Nhận khoản vay dự phòng, chủ động và nhanh chóng</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
-                  </div>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image5} /></div>
-                  <div className="text-7">Tài khoản thanh toán M-Pro</div>
-                  <div className="text-8">Siêu miễn phí, hoàn tiền tới 3,6 triệu đồng</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /> </Button>
-                  </div>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card className="product-card">
-                  <div><img alt="" src={Image6} /></div>
-                  <div className="text-7">Bảo hiểm</div>
-                  <div className="text-8">Mua bảo hiểm trực tuyến dễ dàng chỉ với vài thao tác</div>
-                  <div className="text-9">
-                    <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
-                  </div>
-                </Card>
-              </Col>
+              {products.map((product: any) => {
+                return (<Col span={8}>
+                  <Card className="product-card">
+                    <div><img alt="" src={product.image} /></div>
+                    <div className="text-7">{product.name}</div>
+                    <div className="text-8">{product.description}</div>
+                    <div className="text-9">
+                      <Button type="link">Khám phá ngay <Icon component={IconRightArrow} /></Button>
+                    </div>
+                  </Card>
+                </Col>)
+              })}
             </Row>
           </div>
         </div>

@@ -7,8 +7,6 @@ export const request = (options: any) => {
     headers: {
       Authorization: `Bearer ${token}`,
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "*",
-      "Access-Control-Allow-Headers": "*",
     },
   })
     .then((response: any) => {
@@ -17,8 +15,8 @@ export const request = (options: any) => {
     .catch((error: any) => {
       if (error.response) {
         if (error.response.status === 401) {
-          // window.location.replace("/login");
-          localStorage.clear();
+          // window.location.replace("/");
+          // localStorage.clear();
         }
         return { error: error.response.status, ...error.response.data };
       }

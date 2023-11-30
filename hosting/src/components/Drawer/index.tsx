@@ -1,6 +1,6 @@
-import { ReactElement, useCallback, useEffect, useState } from "react";
+import { ReactElement, useCallback, useState } from "react";
 import { StyledComponent } from "./index.style";
-import { Button, Card, Carousel, Checkbox, Col, Drawer, Form, Input, Radio, RadioChangeEvent, Row } from "antd";
+import { Button, Checkbox, Col, Drawer, Form, Input, Radio, RadioChangeEvent, Row } from "antd";
 import CustomSelect from "components/select.custom";
 import { CheckboxValueType } from "antd/es/checkbox/Group";
 
@@ -36,7 +36,22 @@ function DrawerLayout(props: Props): ReactElement {
       <Drawer title="Yêu cầu tư vấn" placement="right" onClose={() => setOpen(false)} open={open} closable={false}>
         <p className="title" >Thông tin khách hàng</p>
         <Form form={formAdvise} onFinish={onFinish} name="nest-messages" layout="vertical" scrollToFirstError>
-          <Form.Item name="name" rules={[{ required: true, message: "This is a hint text to help user." }]}>
+          <Form.Item
+            name="name"
+            rules={[
+              {
+                required: true,
+                message: "“Vui lòng nhập họ tên”."
+              },
+              {
+                max: 100,
+                message: "Tối đa 100 ký tự"
+              },
+              {
+                pattern: new RegExp(/^[a-zA-Z']+\s[a-zA-Zs']+$/),
+                message: "Vui lòng nhập họ và tên đầy đủ, có dấu cách ở giữa và chỉ chứa dấu nháy đơn"
+              }
+            ]}>
             <Input placeholder="Nhập họ và tên" />
           </Form.Item>
           <Form.Item name="phone" rules={[{ required: true, message: "This is a hint text to help user." }]}>

@@ -15,14 +15,20 @@ export const StyledComponent = styled.div`
     .menu {
       display: inline;
       float: right;
-      width: 550px;
+      width: 600px;
       .ant-menu-horizontal {
         border-bottom: none;
+        display: flex;
+        justify-content: end;
       }
     }
     .advise {
       display: inline;
       float: right;
+      button {
+        border-color: #f4600c;
+        color: #f4600c;
+      }
     }
   }
   .ant-layout-has-sider {

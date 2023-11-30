@@ -40,5 +40,14 @@ export const StyledComponent = styled.div`
         }
       }
     }
+    .ant-menu-item-selected {
+      color: #f4600c !important;
+      background: #fde7db !important;
+      .ant-menu-item-icon {
+        svg path {
+          fill: #f4600c !important;
+        }
+      }
+    }
   }
 `;

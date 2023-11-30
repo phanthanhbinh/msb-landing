@@ -76,6 +76,7 @@ const sendPasswordReset = async (email: string) => {
 
 const logout = () => {
   localStorage.removeItem("accessToken");
+  localStorage.removeItem("email");
   signOut(auth);
   // window.location.replace(`/login`);
 };
