@@ -30,7 +30,7 @@ const AppLayout = () => {
   const [user, loading, error] = useAuthState(auth);
   const login = useCallback(() => {
     form.validateFields().then((values) => {
-      logInWithEmailAndPassword(values.username, values.password)
+      logInWithEmailAndPassword(values.username + "@gmail.com", values.password)
     });
   }, []);
 
